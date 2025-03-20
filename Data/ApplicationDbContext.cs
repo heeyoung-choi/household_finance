@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using FinanceManagement.Models;
 
 namespace FinanceManagement.Data
 {
@@ -20,5 +21,6 @@ namespace FinanceManagement.Data
         {
             base.OnModelCreating(builder);
         }
+        public DbSet<FinanceManagement.Models.AppFile> AppFile { get; set; } = default!;
     }
 }

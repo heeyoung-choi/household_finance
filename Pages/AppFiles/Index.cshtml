@@ -1,0 +1,35 @@
+﻿@page
+@model FinanceManagement.Pages.AppFiles.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppFile[0].Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.AppFile) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                    <a asp-page-handler="Download" asp-route-id="@item.Id">Download</a>
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
