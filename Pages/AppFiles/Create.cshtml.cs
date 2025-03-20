@@ -9,15 +9,18 @@ using FinanceManagement.Data;
 using FinanceManagement.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinanceManagement.Pages.AppFiles
 {
+   
     public class BufferedSingleFileUploadDb
     {
         [Required]
         [Display(Name = "File")]
         public IFormFile FormFile { get; set; }
     }
+    [Authorize(Roles = "admin")]
     public class CreateModel : PageModel
     {
         private readonly FinanceManagement.Data.ApplicationDbContext _context;

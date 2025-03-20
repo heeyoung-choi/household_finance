@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FinanceManagement.Data;
 using FinanceManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinanceManagement.Pages.AppFiles
 {
+    [Authorize(Roles = "admin")]
     public class IndexModel : PageModel
     {
         private readonly FinanceManagement.Data.ApplicationDbContext _context;
