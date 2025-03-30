@@ -1,4 +1,4 @@
-﻿@inject SignInManager<FinanceManagement.Data.ApplicationUser> SignInManager
+﻿@inject SignInManager<FinanceManagement.Models.ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

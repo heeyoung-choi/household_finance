@@ -2,6 +2,7 @@ using FinanceManagement.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using FinanceManagement.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,17 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddRazorPages();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("require-admin-role", policy => policy.RequireRole("admin")); // Define policy
+});
+
+builder.Services.AddRazorPages(
+options =>
+{
+    options.Conventions.AuthorizeAreaFolder("AdminPanel", "/", "require-admin-role");
+}
+);
 builder.Services.AddAuthentication().AddFacebook(facebookOptions =>
 {
     facebookOptions.AppId = builder.Configuration["Authentication:Facebook:AppId"];

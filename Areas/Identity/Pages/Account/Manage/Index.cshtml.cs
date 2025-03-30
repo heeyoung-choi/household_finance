@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using FinanceManagement.Data;
+using FinanceManagement.Models;
 
 namespace FinanceManagement.Areas.Identity.Pages.Account.Manage
 {
@@ -75,7 +75,6 @@ namespace FinanceManagement.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                CustomTag = user.CustomTag,
                 PhoneNumber = phoneNumber
             };
         }
@@ -116,10 +115,7 @@ namespace FinanceManagement.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-            if (Input.CustomTag != user.CustomTag)
-            {
-                user.CustomTag = Input.CustomTag;
-            }
+           
             await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
