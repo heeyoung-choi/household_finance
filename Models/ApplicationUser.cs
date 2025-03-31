@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FinanceManagement.Models
@@ -11,5 +12,7 @@ namespace FinanceManagement.Models
         public List<Household> HouseholdsOwned { get; set; }
         public List<HouseholdMember> HouseholdsBelong { get; set; }
         public List<Transaction> Transactions { get; set; }
+        [MinLength(6), MaxLength(20)]
+        public string UserName { get; set; }
     }
 }

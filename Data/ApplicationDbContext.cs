@@ -34,6 +34,11 @@ namespace FinanceManagement.Data
                 .HasOne(hm => hm.Household)
                 .WithMany(a => a.Members)
                 .OnDelete(DeleteBehavior.NoAction);
+            builder
+                .Entity<ApplicationUser>()
+                .Property(u => u.UserName)
+                .IsRequired()
+                .HasMaxLength(20);
         }
        
     }
