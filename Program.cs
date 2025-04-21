@@ -11,7 +11,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
+    options.SignIn.RequireConfirmedAccount = true;
+    options.User.RequireUniqueEmail = false; // Allow users to have the same email
+    options.SignIn.RequireConfirmedEmail = false; // Don't require email confirmation
+})
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddAuthorization(options =>
@@ -34,12 +38,12 @@ builder.Services.AddAuthentication().AddFacebook(facebookOptions =>
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 6;
-    options.Password.RequiredUniqueChars = 1;
+    options.Password.RequireDigit = false; // Don't require numbers
+    options.Password.RequireLowercase = false; // Don't require lowercase letters
+    options.Password.RequireNonAlphanumeric = false; // Don't require special characters
+    options.Password.RequireUppercase = false; // Don't require uppercase letters
+    options.Password.RequiredLength = 4; // Minimum 4 characters
+    options.Password.RequiredUniqueChars = 1; // Keep at least 1 unique character
 
     // Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
