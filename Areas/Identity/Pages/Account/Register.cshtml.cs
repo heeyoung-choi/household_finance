@@ -119,6 +119,14 @@ namespace FinanceManagement.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                // Check if email already exists
+                var existingUser = await _userManager.FindByEmailAsync(Input.Email);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError(string.Empty, "This email is already registered.");
+                    return Page();
+                }
+
                 var user = CreateUser();
 
                 user.UserName = Input.UserName;
